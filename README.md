@@ -5,13 +5,17 @@ A simple .net application that draws a mandelbrot set. Numerous options are avai
 such as relative position and scale.
 
 Image controls:
+
   Left click:
   Move to that location
 
   Right click:
   Move to that location, and zoom 2x
 
+
+
 Button controls:
+
   Coordinates:
   Set an X/Y offset to move the image
 
