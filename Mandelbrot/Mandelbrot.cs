@@ -12,7 +12,7 @@ namespace Mandelbrot
     {
         public static Bitmap mandel;        // Bitmap waar het uiteindelijke resultaat in wordt opgeslagen
 
-        public static int calculateMandelbrotNum(double x, double y, int maxIterations) // Uitrekenen van het mandelgetal
+        private static int calculate(double x, double y, int maxIterations) // Uitrekenen van het mandelgetal
         {
             double a = 0;                   // Zetten van vars
             double b = 0;
@@ -25,19 +25,21 @@ namespace Mandelbrot
                 b = 2 * a * b + y;                                      // B uitrekenen met orginele A
                 a = newA;                                               // A naar nieuwe waarde zetten
 
-                mandel = a * a + b * b;                                 // Pytagorasje
+                mandel = a * a + b * b; 
                 if (mandel > 4)
                 {
-                    return iteration;                                   // Als de waarde groter is dan twee het aantal iteraties terugsturen
+                    return iteration;                                   // Als de waarde groter is dan view het aantal iteraties terugsturen
                 }
             }
 
             return 0;                                                   // Anders 0 terug voor zwart
         }
 
-        static readonly object locker = new object();                   // Object voor lock
-        public static void generateMandelbrot(Graphics graphics, int start, int stepSize, int width, int height, int halfWidth, int halfHeight, double scale, double xOffset, double yOffset, int iterations)
-        {
+        public static void generateImage(Graphics graphics, int start, int stepSize, int width, int height, int halfWidth, int halfHeight, double scale, double xOffset, double yOffset, int iterations)
+        {            
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
             Bitmap personalBitmap = new Bitmap(width, height);              // Eigen bitmap zodat er niet gewacht hoeft te worden op andere threads
                                                                             // TODO kleinere bitmap voor elke thread
             for (int x = start; x < width; x = x + stepSize)                // X ophogen met stepSize, afhankelijk van het aantal draaiende threads
@@ -47,7 +49,7 @@ namespace Mandelbrot
                     double scaledX = (x - halfWidth) * scale + xOffset;     // Schalen naar mandelbrot-coordinaten
                     double scaledY = (y - halfHeight) * scale + yOffset;
 
-                    int mandelNum = Mandelbrot.calculateMandelbrotNum(scaledX, scaledY, iterations);    // Draaien daadwerkelijke berekening
+                    int mandelNum = Mandelbrot.calculate(scaledX, scaledY, iterations);    // Draaien daadwerkelijke berekening
                     if (mandelNum % 2 != 0)
                     {
                         personalBitmap.SetPixel(x, y, Color.White);         // Getal is even, dus wit
@@ -59,10 +61,10 @@ namespace Mandelbrot
                 }
             }
             
-            lock (locker)                                                   // Een lock zodat andere threads niet aan de bitmap kunen komen (geeft exception)
-            {
-                graphics.DrawImage(personalBitmap, 0, 0);
-            }
+            graphics.DrawImage(personalBitmap, 0, 0);                       // Elke thread heeft zijn eigen graphics object, dus er hoeft niet gewacht te worden op elkaar
+
+            stopwatch.Stop();
+            Console.Out.WriteLine("Done in " + stopwatch.ElapsedMilliseconds);
         }
     }
 }

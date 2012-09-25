@@ -20,7 +20,6 @@ namespace Mandelbrot
             InitializeComponent();
 
             InitializeListbox();
-
             pnFractal.Paint += drawScreen;
         }
 
@@ -32,19 +31,10 @@ namespace Mandelbrot
             listBox.Items.Add("Landmark 4");
             listBox.Items.Add("Landmark 5");
         }
-        
+
         private void drawScreen(object sender, PaintEventArgs e)
         {
             int numThreads = (int)nmThreads.Value;          
-            if (numThreads == 0)                            // Geen threads, geen render                      
-            {
-                return;
-            }
-
-            Stopwatch stopwatch = new Stopwatch();          // Nieuwe stopwatch voor het meten van de tijd
-            stopwatch.Start();
-
-            Graphics graphics = e.Graphics;                 // Convenience
 
             double scale = double.Parse(tbScale.Text);      // Schaal ophalen uit textbox
             int iterations = int.Parse(tbIterations.Text);  // Max. iteraties
@@ -59,28 +49,24 @@ namespace Mandelbrot
 
             Mandelbrot.mandel = new Bitmap(width, height);  // Nieuwe bitmap voor de fractal
 
-            Thread[] threads = new Thread[numThreads];      // Array om draaiende threads in op te slaan
-            for (int i = 0; i < numThreads; i++)
+            if(numThreads == 0)
             {
-                int start = i;                              // Moet in een nieuwe variabele voor generateMandelbrot
-                int stepSize = numThreads;                  // Idem
-
-                Thread newThread = new Thread(() => Mandelbrot.generateMandelbrot(graphics, start, stepSize, width, height, halfWidth, halfHeight, scale, xOffset, yOffset, iterations));
+                Mandelbrot.generateImage(e.Graphics, 0, 1, width, height, halfWidth, halfHeight, scale, xOffset, yOffset, iterations);
+            }
+            else
+            {
+                for (int i = 0; i < numThreads; i++)
+                {
+                    int start = i;                              // Moet in een nieuwe variabele voor generateMandelbrot
+                    int stepSize = numThreads;                  // Idem
+                                                                // Hieronder wordt CreateGraphics gebruikt omdat Graphics van PaintEventArgs "vervalt" nadat de methode returnt
+                    Thread newThread = new Thread(() => Mandelbrot.generateImage(pnFractal.CreateGraphics(), start, stepSize, width, height, halfWidth, halfHeight, scale, xOffset, yOffset, iterations));
                
-                newThread.Name = i.ToString();              // Naam voor debugging purposes
-                newThread.Start();                          // Draaien maar!
-                threads[i] = newThread;                     // Thread opslaan in array
+                    newThread.Name = i.ToString();              // Naam voor debugging purposes
+                    newThread.Start();                          // Draaien maar!
+                }
             }
-            for (int i = 0; i < numThreads; i++)            // Wachten op alle threads
-            {
-                threads[i].Join();
-            }
-
-            stopwatch.Stop();                               // Performance report in statusbar en "console"
-            statusLabel.Text = "Done in " + stopwatch.ElapsedMilliseconds + " millis";
-            Console.WriteLine(statusLabel.Text);
         }
-
 
         private void btRun_Click(object sender, EventArgs e)
         {
