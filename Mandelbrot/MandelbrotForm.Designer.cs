@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.gbControls = new System.Windows.Forms.GroupBox();
-            this.listBox = new System.Windows.Forms.ListBox();
             this.label4 = new System.Windows.Forms.Label();
             this.nmThreads = new System.Windows.Forms.NumericUpDown();
             this.btRun = new System.Windows.Forms.Button();
@@ -44,43 +42,23 @@
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.statusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.pnFractal = new System.Windows.Forms.Panel();
-            this.gbControls.SuspendLayout();
+            this.listBox = new System.Windows.Forms.ListBox();
+            this.gbControls = new System.Windows.Forms.GroupBox();
+            this.colourBox = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.numericRed = new System.Windows.Forms.NumericUpDown();
+            this.numericGreen = new System.Windows.Forms.NumericUpDown();
+            this.numericBlue = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.nmThreads)).BeginInit();
             this.statusStrip.SuspendLayout();
+            this.gbControls.SuspendLayout();
+            this.colourBox.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericRed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericGreen)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericBlue)).BeginInit();
             this.SuspendLayout();
-            // 
-            // gbControls
-            // 
-            this.gbControls.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.gbControls.Controls.Add(this.listBox);
-            this.gbControls.Controls.Add(this.label4);
-            this.gbControls.Controls.Add(this.nmThreads);
-            this.gbControls.Controls.Add(this.btRun);
-            this.gbControls.Controls.Add(this.label3);
-            this.gbControls.Controls.Add(this.label2);
-            this.gbControls.Controls.Add(this.label1);
-            this.gbControls.Controls.Add(this.tbIterations);
-            this.gbControls.Controls.Add(this.tbScale);
-            this.gbControls.Controls.Add(this.tbCoordY);
-            this.gbControls.Controls.Add(this.tbCoordX);
-            this.gbControls.Controls.Add(this.btReset);
-            this.gbControls.Location = new System.Drawing.Point(12, 12);
-            this.gbControls.Name = "gbControls";
-            this.gbControls.Size = new System.Drawing.Size(460, 99);
-            this.gbControls.TabIndex = 0;
-            this.gbControls.TabStop = false;
-            this.gbControls.Text = "Controls";
-            // 
-            // listBox
-            // 
-            this.listBox.FormattingEnabled = true;
-            this.listBox.Location = new System.Drawing.Point(260, 43);
-            this.listBox.Name = "listBox";
-            this.listBox.Size = new System.Drawing.Size(113, 43);
-            this.listBox.TabIndex = 11;
-            this.listBox.SelectedIndexChanged += new System.EventHandler(this.listBox_SelectedIndexChanged);
             // 
             // label4
             // 
@@ -107,7 +85,7 @@
             // btRun
             // 
             this.btRun.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btRun.Location = new System.Drawing.Point(379, 14);
+            this.btRun.Location = new System.Drawing.Point(381, 14);
             this.btRun.Name = "btRun";
             this.btRun.Size = new System.Drawing.Size(75, 46);
             this.btRun.TabIndex = 8;
@@ -184,7 +162,7 @@
             // btReset
             // 
             this.btReset.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btReset.Location = new System.Drawing.Point(379, 67);
+            this.btReset.Location = new System.Drawing.Point(381, 67);
             this.btReset.Name = "btReset";
             this.btReset.Size = new System.Drawing.Size(75, 23);
             this.btReset.TabIndex = 0;
@@ -198,7 +176,7 @@
             this.statusLabel});
             this.statusStrip.Location = new System.Drawing.Point(0, 589);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(484, 22);
+            this.statusStrip.Size = new System.Drawing.Size(609, 22);
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "statusStrip";
             // 
@@ -214,26 +192,180 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnFractal.Location = new System.Drawing.Point(12, 117);
             this.pnFractal.Name = "pnFractal";
-            this.pnFractal.Size = new System.Drawing.Size(460, 460);
+            this.pnFractal.Size = new System.Drawing.Size(585, 460);
             this.pnFractal.TabIndex = 3;
+            this.pnFractal.Paint += new System.Windows.Forms.PaintEventHandler(this.pnFractal_Paint);
             this.pnFractal.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pnFractal_MouseClick);
+            // 
+            // listBox
+            // 
+            this.listBox.FormattingEnabled = true;
+            this.listBox.Location = new System.Drawing.Point(260, 43);
+            this.listBox.Name = "listBox";
+            this.listBox.Size = new System.Drawing.Size(113, 43);
+            this.listBox.TabIndex = 11;
+            this.listBox.SelectedIndexChanged += new System.EventHandler(this.listBox_SelectedIndexChanged);
+            // 
+            // gbControls
+            // 
+            this.gbControls.Controls.Add(this.listBox);
+            this.gbControls.Controls.Add(this.label4);
+            this.gbControls.Controls.Add(this.nmThreads);
+            this.gbControls.Controls.Add(this.btRun);
+            this.gbControls.Controls.Add(this.label3);
+            this.gbControls.Controls.Add(this.label2);
+            this.gbControls.Controls.Add(this.label1);
+            this.gbControls.Controls.Add(this.tbIterations);
+            this.gbControls.Controls.Add(this.tbScale);
+            this.gbControls.Controls.Add(this.tbCoordY);
+            this.gbControls.Controls.Add(this.tbCoordX);
+            this.gbControls.Controls.Add(this.btReset);
+            this.gbControls.Location = new System.Drawing.Point(12, 12);
+            this.gbControls.Name = "gbControls";
+            this.gbControls.Size = new System.Drawing.Size(462, 99);
+            this.gbControls.TabIndex = 0;
+            this.gbControls.TabStop = false;
+            this.gbControls.Text = "Controls";
+            // 
+            // colourBox
+            // 
+            this.colourBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.colourBox.Controls.Add(this.label7);
+            this.colourBox.Controls.Add(this.label6);
+            this.colourBox.Controls.Add(this.label5);
+            this.colourBox.Controls.Add(this.numericRed);
+            this.colourBox.Controls.Add(this.numericGreen);
+            this.colourBox.Controls.Add(this.numericBlue);
+            this.colourBox.Location = new System.Drawing.Point(480, 12);
+            this.colourBox.Name = "colourBox";
+            this.colourBox.Size = new System.Drawing.Size(117, 99);
+            this.colourBox.TabIndex = 4;
+            this.colourBox.TabStop = false;
+            this.colourBox.Text = "Colours";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(6, 68);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(43, 15);
+            this.label7.TabIndex = 14;
+            this.label7.Text = "Blue";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(6, 42);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(52, 15);
+            this.label6.TabIndex = 13;
+            this.label6.Text = "Green";
+            this.label6.Click += new System.EventHandler(this.label6_Click);
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Lucida Console", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(6, 18);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(34, 15);
+            this.label5.TabIndex = 12;
+            this.label5.Text = "Red";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
+            // 
+            // numericRed
+            // 
+            this.numericRed.Location = new System.Drawing.Point(64, 14);
+            this.numericRed.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericRed.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericRed.Name = "numericRed";
+            this.numericRed.Size = new System.Drawing.Size(39, 20);
+            this.numericRed.TabIndex = 2;
+            this.numericRed.Value = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+            this.numericRed.ValueChanged += new System.EventHandler(this.numericUpDown3_ValueChanged);
+            // 
+            // numericGreen
+            // 
+            this.numericGreen.Location = new System.Drawing.Point(64, 40);
+            this.numericGreen.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericGreen.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericGreen.Name = "numericGreen";
+            this.numericGreen.Size = new System.Drawing.Size(39, 20);
+            this.numericGreen.TabIndex = 1;
+            this.numericGreen.Value = new decimal(new int[] {
+            65,
+            0,
+            0,
+            0});
+            // 
+            // numericBlue
+            // 
+            this.numericBlue.Location = new System.Drawing.Point(64, 66);
+            this.numericBlue.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numericBlue.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numericBlue.Name = "numericBlue";
+            this.numericBlue.Size = new System.Drawing.Size(39, 20);
+            this.numericBlue.TabIndex = 0;
+            this.numericBlue.Value = new decimal(new int[] {
+            12,
+            0,
+            0,
+            0});
+            this.numericBlue.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // MandelbrotForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(484, 611);
+            this.ClientSize = new System.Drawing.Size(609, 611);
+            this.Controls.Add(this.colourBox);
             this.Controls.Add(this.pnFractal);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.gbControls);
             this.Cursor = System.Windows.Forms.Cursors.Cross;
             this.Name = "MandelbrotForm";
             this.Text = "Mandelbrot";
-            this.gbControls.ResumeLayout(false);
-            this.gbControls.PerformLayout();
+            this.Load += new System.EventHandler(this.MandelbrotForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nmThreads)).EndInit();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();
+            this.gbControls.ResumeLayout(false);
+            this.gbControls.PerformLayout();
+            this.colourBox.ResumeLayout(false);
+            this.colourBox.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numericRed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericGreen)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericBlue)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -241,7 +373,6 @@
 
         #endregion
 
-        private System.Windows.Forms.GroupBox gbControls;
         private System.Windows.Forms.Button btReset;
         private System.Windows.Forms.TextBox tbIterations;
         private System.Windows.Forms.TextBox tbScale;
@@ -253,10 +384,18 @@
         private System.Windows.Forms.Button btRun;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown nmThreads;
-        private System.Windows.Forms.ListBox listBox;
         private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.ToolStripStatusLabel statusLabel;
         private System.Windows.Forms.Panel pnFractal;
+        private System.Windows.Forms.ListBox listBox;
+        private System.Windows.Forms.GroupBox gbControls;
+        private System.Windows.Forms.GroupBox colourBox;
+        private System.Windows.Forms.NumericUpDown numericRed;
+        private System.Windows.Forms.NumericUpDown numericGreen;
+        private System.Windows.Forms.NumericUpDown numericBlue;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Label label5;
     }
 }
 

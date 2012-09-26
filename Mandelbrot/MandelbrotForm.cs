@@ -15,6 +15,7 @@ namespace Mandelbrot
 {
     public partial class MandelbrotForm : Form
     {
+
         public MandelbrotForm()
         {
             InitializeComponent();
@@ -36,22 +37,25 @@ namespace Mandelbrot
         {
             int numThreads = (int)nmThreads.Value;          
 
-            double scale = double.Parse(tbScale.Text);      // Schaal ophalen uit textbox
-            int iterations = int.Parse(tbIterations.Text);  // Max. iteraties
-            double xOffset = double.Parse(tbCoordX.Text);   // X "coordinaat"
-            double yOffset = double.Parse(tbCoordY.Text);   // Y "coordinaat"
+            Mandelbrot.scale = double.Parse(tbScale.Text);      // Schaal ophalen uit textbox
+            Mandelbrot.maxIterations = int.Parse(tbIterations.Text);  // Max. iteraties
 
-            int width = pnFractal.Width;                    // Breedte/hoogte van het scherm
-            int height = pnFractal.Height;
+            Mandelbrot.mandelOffset[0] = double.Parse(tbCoordX.Text);   // X "coordinaat"
+            Mandelbrot.mandelOffset[1] = double.Parse(tbCoordY.Text);   // Y "coordinaat"
 
-            int halfWidth = width / 2;                      // In een variabele om dubbel uitrekenen te voorkomen
-            int halfHeight = height / 2;
+            Mandelbrot.screenSize[0] = pnFractal.Width;
+            Mandelbrot.screenSize[1] = pnFractal.Height;
 
-            Mandelbrot.mandel = new Bitmap(width, height);  // Nieuwe bitmap voor de fractal
+            Mandelbrot.halfScreenSize[0] = pnFractal.Width / 2;         // In een variabele om dubbel uitrekenen te voorkomen
+            Mandelbrot.halfScreenSize[1] = pnFractal.Height / 2;
 
-            if(numThreads == 0)
+            Mandelbrot.colours[0] = (int) numericRed.Value;
+            Mandelbrot.colours[1] = (int) numericGreen.Value;
+            Mandelbrot.colours[2] = (int) numericBlue.Value;
+
+            if (numThreads == 0)
             {
-                Mandelbrot.generateImage(e.Graphics, 0, 1, width, height, halfWidth, halfHeight, scale, xOffset, yOffset, iterations);
+                Mandelbrot.generateImage(e.Graphics, 0, 1);    // graphics, startX, stepSize
             }
             else
             {
@@ -60,7 +64,7 @@ namespace Mandelbrot
                     int start = i;                              // Moet in een nieuwe variabele voor generateMandelbrot
                     int stepSize = numThreads;                  // Idem
                                                                 // Hieronder wordt CreateGraphics gebruikt omdat Graphics van PaintEventArgs "vervalt" nadat de methode returnt
-                    Thread newThread = new Thread(() => Mandelbrot.generateImage(pnFractal.CreateGraphics(), start, stepSize, width, height, halfWidth, halfHeight, scale, xOffset, yOffset, iterations));
+                    Thread newThread = new Thread(() => Mandelbrot.generateImage(pnFractal.CreateGraphics(), start, stepSize));
                
                     newThread.Name = i.ToString();              // Naam voor debugging purposes
                     newThread.Start();                          // Draaien maar!
@@ -205,6 +209,46 @@ namespace Mandelbrot
                     break;
             }
             pnFractal.Invalidate();
+        }
+
+        private void gbControls_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void MandelbrotForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackBar2_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void numericUpDown3_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pnFractal_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
