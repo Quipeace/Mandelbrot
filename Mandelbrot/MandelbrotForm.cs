@@ -21,19 +21,21 @@ namespace Mandelbrot
             InitializeComponent();
 
             InitializeListbox();
+
+            nmThreads.Value = Environment.ProcessorCount;
         }
 
         private void InitializeListbox()
         {
-            listBox.Items.Add("Tear and Pillars");
+            listBox.Items.Add("Torn Set");
             listBox.Items.Add("Spiral Down");
-            listBox.Items.Add("Landmark 3");
-            listBox.Items.Add("Landmark 4");
+            listBox.Items.Add("Stars");
+            listBox.Items.Add("Day at the Beach");
             listBox.Items.Add("Landmark 5");
         }
 
-        private void drawMandel()
-        {
+        private void drawMandel()       // Niet in een paint-event om te voorkomen dat het scherm kort wit wordt voor het tekenen
+        {                               // Daarbij is Graphics van PaintEventArgs alleen geldig terwijl het paint event draait, CreateGraphics blijft geldig zolang de Control bestaat
             int numThreads = (int)nmThreads.Value;          
 
             Mandelbrot.scale = double.Parse(tbScale.Text);            // Schaal ophalen uit textbox
@@ -42,19 +44,16 @@ namespace Mandelbrot
             Mandelbrot.mandelOffset[0] = double.Parse(tbCoordX.Text);   // X "coordinaat"
             Mandelbrot.mandelOffset[1] = double.Parse(tbCoordY.Text);   // Y "coordinaat"
 
-            Mandelbrot.screenSize[0] = pnFractal.Width;
-            Mandelbrot.screenSize[1] = pnFractal.Height;
+            Mandelbrot.colours[0] = (int) trackRed.Value;
+            Mandelbrot.colours[1] = (int) trackGreen.Value;
+            Mandelbrot.colours[2] = (int) trackBlue.Value;
 
-            Mandelbrot.halfScreenSize[0] = pnFractal.Width / 2;         // In een variabele om dubbel uitrekenen te voorkomen
-            Mandelbrot.halfScreenSize[1] = pnFractal.Height / 2;
-
-            Mandelbrot.colours[0] = (int) numericRed.Value;
-            Mandelbrot.colours[1] = (int) numericGreen.Value;
-            Mandelbrot.colours[2] = (int) numericBlue.Value;
+            int[] screenSize = { pnFractal.Width, pnFractal.Height };
+            int[] halfScreenSize = { pnFractal.Width / 2, pnFractal.Height / 2 };
 
             if (numThreads == 0)
             {
-                Mandelbrot.generateImage(pnFractal.CreateGraphics(), 0, 1);    // graphics, startX, stepSize
+                Mandelbrot.generateImage(pnFractal.CreateGraphics(), 0, 1, screenSize, halfScreenSize);    // graphics, startX, stepSize
             }
             else
             {
@@ -62,8 +61,8 @@ namespace Mandelbrot
                 {
                     int start = i;                              // Moet in een nieuwe variabele voor generateMandelbrot
                     int stepSize = numThreads;                  // Idem
-                                                                // Hieronder wordt CreateGraphics gebruikt omdat Graphics van PaintEventArgs "vervalt" nadat de methode returnt
-                    Thread newThread = new Thread(() => Mandelbrot.generateImage(pnFractal.CreateGraphics(), start, stepSize));
+
+                    Thread newThread = new Thread(() => Mandelbrot.generateImage(pnFractal.CreateGraphics(), start, stepSize, screenSize, halfScreenSize));
                
                     newThread.Name = i.ToString();              // Naam voor debugging purposes
                     newThread.Start();                          // Draaien maar!
@@ -78,10 +77,15 @@ namespace Mandelbrot
 
         private void btReset_Click(object sender, EventArgs e)
         {
+            nmThreads.Value = Environment.ProcessorCount;
             tbCoordX.Text = "0.0";
             tbCoordY.Text = "0.0";
             tbScale.Text = "0.01";
             tbIterations.Text = "100";
+
+            trackRed.Value = 50;
+            trackGreen.Value = 65;
+            trackBlue.Value = 12;
 
             drawMandel();
         }
@@ -182,9 +186,14 @@ namespace Mandelbrot
             drawMandel();                                     // Renderen met nieuwe waardes
         }
 
+        private void pnFractal_Resize(object sender, EventArgs e)
+        {
+            drawMandel();
+        }
+
         private void listBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch(listBox.SelectedIndex)
+            switch (listBox.SelectedIndex)
             {
                 case 0:
                     tbCoordX.Text = "-1,25340576171876";
@@ -199,8 +208,16 @@ namespace Mandelbrot
                     tbIterations.Text = "100";
                     break;
                 case 2:
+                    tbCoordX.Text = "0.0578515625";
+                    tbCoordY.Text = "-0.656953125";
+                    tbScale.Text = "1.953125E-05";
+                    tbIterations.Text = "100";
                     break;
                 case 3:
+                    tbCoordX.Text = "-0,19854736328125";
+                    tbCoordY.Text = "-1,0999072265625";
+                    tbScale.Text = "6,103515625E-07";
+                    tbIterations.Text = "100";
                     break;
                 case 4:
                     break;
@@ -208,6 +225,16 @@ namespace Mandelbrot
                     break;
             }
             drawMandel();
+        }
+
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pnFractal_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

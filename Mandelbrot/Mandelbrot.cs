@@ -10,8 +10,6 @@ namespace Mandelbrot
 {
     class Mandelbrot
     {
-        public static int[] screenSize = new int[2];
-        public static int[] halfScreenSize = new int[2];
         public static double[] mandelOffset = new double[2];
         public static int[] colours = new int[3];
         public static double scale;
@@ -40,8 +38,8 @@ namespace Mandelbrot
             return 0;                                                   // Anders 0 terug voor zwart
         }
 
-        public static void generateImage(Graphics graphics, int start, int stepSize)
-        {            
+        public static void generateImage(Graphics graphics, int start, int stepSize, int[] screenSize, int[] halfScreenSize)
+        {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
@@ -57,7 +55,6 @@ namespace Mandelbrot
                     int mandelNum = Mandelbrot.calculate(scaledX, scaledY);    // Draaien daadwerkelijke berekening
 
                     personalBitmap.SetPixel(x, y, GetColor(mandelNum));
-
                 }
             }
 
@@ -70,9 +67,9 @@ namespace Mandelbrot
 
         private static Color GetColor(int mandelNum)
         {
-            int red = 255 - (mandelNum % colours[0]) * (255 / colours[0]);
-            int green = 255 - (mandelNum % colours[1]) * (255 / colours[1]);
-            int blue = 255 - (mandelNum % colours[2]) * (255 / colours[2]);
+            int red =   240 - (mandelNum % colours[0]) * (240 / colours[0]);    // 240 RGB is de standaard achtergrondkleur van een Windows form
+            int green = 240 - (mandelNum % colours[1]) * (240 / colours[1]);
+            int blue =  240 - (mandelNum % colours[2]) * (240 / colours[2]);
 
             return Color.FromArgb(red, green, blue);
         }

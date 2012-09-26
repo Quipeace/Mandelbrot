@@ -48,16 +48,22 @@
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.numericRed = new System.Windows.Forms.NumericUpDown();
-            this.numericGreen = new System.Windows.Forms.NumericUpDown();
-            this.numericBlue = new System.Windows.Forms.NumericUpDown();
+            this.trackBlue = new System.Windows.Forms.TrackBar();
+            this.trackRed = new System.Windows.Forms.TrackBar();
+            this.trackGreen = new System.Windows.Forms.TrackBar();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nmThreads)).BeginInit();
             this.statusStrip.SuspendLayout();
             this.gbControls.SuspendLayout();
             this.colourBox.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericRed)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericGreen)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericBlue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBlue)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackRed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackGreen)).BeginInit();
             this.SuspendLayout();
             // 
             // label4
@@ -176,7 +182,7 @@
             this.statusLabel});
             this.statusStrip.Location = new System.Drawing.Point(0, 589);
             this.statusStrip.Name = "statusStrip";
-            this.statusStrip.Size = new System.Drawing.Size(609, 22);
+            this.statusStrip.Size = new System.Drawing.Size(796, 22);
             this.statusStrip.TabIndex = 2;
             this.statusStrip.Text = "statusStrip";
             // 
@@ -190,11 +196,14 @@
             this.pnFractal.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnFractal.Cursor = System.Windows.Forms.Cursors.Cross;
             this.pnFractal.Location = new System.Drawing.Point(12, 117);
             this.pnFractal.Name = "pnFractal";
-            this.pnFractal.Size = new System.Drawing.Size(585, 460);
+            this.pnFractal.Size = new System.Drawing.Size(772, 460);
             this.pnFractal.TabIndex = 3;
+            this.pnFractal.Paint += new System.Windows.Forms.PaintEventHandler(this.pnFractal_Paint);
             this.pnFractal.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pnFractal_MouseClick);
+            this.pnFractal.Resize += new System.EventHandler(this.pnFractal_Resize);
             // 
             // listBox
             // 
@@ -229,15 +238,21 @@
             // colourBox
             // 
             this.colourBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.colourBox.Controls.Add(this.label13);
+            this.colourBox.Controls.Add(this.label12);
+            this.colourBox.Controls.Add(this.label11);
+            this.colourBox.Controls.Add(this.label10);
+            this.colourBox.Controls.Add(this.label9);
+            this.colourBox.Controls.Add(this.label8);
+            this.colourBox.Controls.Add(this.trackGreen);
+            this.colourBox.Controls.Add(this.trackRed);
+            this.colourBox.Controls.Add(this.trackBlue);
             this.colourBox.Controls.Add(this.label7);
             this.colourBox.Controls.Add(this.label6);
             this.colourBox.Controls.Add(this.label5);
-            this.colourBox.Controls.Add(this.numericRed);
-            this.colourBox.Controls.Add(this.numericGreen);
-            this.colourBox.Controls.Add(this.numericBlue);
-            this.colourBox.Location = new System.Drawing.Point(480, 12);
+            this.colourBox.Location = new System.Drawing.Point(483, 12);
             this.colourBox.Name = "colourBox";
-            this.colourBox.Size = new System.Drawing.Size(117, 99);
+            this.colourBox.Size = new System.Drawing.Size(301, 99);
             this.colourBox.TabIndex = 4;
             this.colourBox.TabStop = false;
             this.colourBox.Text = "Colours";
@@ -272,82 +287,104 @@
             this.label5.TabIndex = 12;
             this.label5.Text = "Red";
             // 
-            // numericRed
+            // trackBlue
             // 
-            this.numericRed.Location = new System.Drawing.Point(64, 14);
-            this.numericRed.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numericRed.Minimum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.numericRed.Name = "numericRed";
-            this.numericRed.Size = new System.Drawing.Size(39, 20);
-            this.numericRed.TabIndex = 2;
-            this.numericRed.Value = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
+            this.trackBlue.AutoSize = false;
+            this.trackBlue.Location = new System.Drawing.Point(80, 66);
+            this.trackBlue.Maximum = 240;
+            this.trackBlue.Minimum = 2;
+            this.trackBlue.Name = "trackBlue";
+            this.trackBlue.Size = new System.Drawing.Size(196, 20);
+            this.trackBlue.TabIndex = 17;
+            this.trackBlue.Value = 12;
             // 
-            // numericGreen
+            // trackRed
             // 
-            this.numericGreen.Location = new System.Drawing.Point(64, 40);
-            this.numericGreen.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numericGreen.Minimum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.numericGreen.Name = "numericGreen";
-            this.numericGreen.Size = new System.Drawing.Size(39, 20);
-            this.numericGreen.TabIndex = 1;
-            this.numericGreen.Value = new decimal(new int[] {
-            65,
-            0,
-            0,
-            0});
+            this.trackRed.AutoSize = false;
+            this.trackRed.Location = new System.Drawing.Point(80, 14);
+            this.trackRed.Maximum = 240;
+            this.trackRed.Minimum = 2;
+            this.trackRed.Name = "trackRed";
+            this.trackRed.Size = new System.Drawing.Size(196, 24);
+            this.trackRed.TabIndex = 18;
+            this.trackRed.Value = 50;
+            this.trackRed.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
-            // numericBlue
+            // trackGreen
             // 
-            this.numericBlue.Location = new System.Drawing.Point(64, 66);
-            this.numericBlue.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numericBlue.Minimum = new decimal(new int[] {
-            2,
-            0,
-            0,
-            0});
-            this.numericBlue.Name = "numericBlue";
-            this.numericBlue.Size = new System.Drawing.Size(39, 20);
-            this.numericBlue.TabIndex = 0;
-            this.numericBlue.Value = new decimal(new int[] {
-            12,
-            0,
-            0,
-            0});
+            this.trackGreen.AutoSize = false;
+            this.trackGreen.Location = new System.Drawing.Point(80, 43);
+            this.trackGreen.Maximum = 240;
+            this.trackGreen.Minimum = 2;
+            this.trackGreen.Name = "trackGreen";
+            this.trackGreen.Size = new System.Drawing.Size(196, 21);
+            this.trackGreen.TabIndex = 19;
+            this.trackGreen.Value = 65;
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(282, 16);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(13, 13);
+            this.label8.TabIndex = 20;
+            this.label8.Text = "+";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(282, 44);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(13, 13);
+            this.label9.TabIndex = 21;
+            this.label9.Text = "+";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(282, 67);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(13, 13);
+            this.label10.TabIndex = 22;
+            this.label10.Text = "+";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(64, 16);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(10, 13);
+            this.label11.TabIndex = 23;
+            this.label11.Text = "-";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(64, 44);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(10, 13);
+            this.label12.TabIndex = 24;
+            this.label12.Text = "-";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(64, 67);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(10, 13);
+            this.label13.TabIndex = 25;
+            this.label13.Text = "-";
             // 
             // MandelbrotForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(609, 611);
+            this.ClientSize = new System.Drawing.Size(796, 611);
             this.Controls.Add(this.colourBox);
             this.Controls.Add(this.pnFractal);
             this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.gbControls);
-            this.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.Cursor = System.Windows.Forms.Cursors.Default;
             this.Name = "MandelbrotForm";
             this.Text = "Mandelbrot";
             ((System.ComponentModel.ISupportInitialize)(this.nmThreads)).EndInit();
@@ -357,9 +394,9 @@
             this.gbControls.PerformLayout();
             this.colourBox.ResumeLayout(false);
             this.colourBox.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericRed)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericGreen)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numericBlue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBlue)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackRed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackGreen)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -384,12 +421,18 @@
         private System.Windows.Forms.ListBox listBox;
         private System.Windows.Forms.GroupBox gbControls;
         private System.Windows.Forms.GroupBox colourBox;
-        private System.Windows.Forms.NumericUpDown numericRed;
-        private System.Windows.Forms.NumericUpDown numericGreen;
-        private System.Windows.Forms.NumericUpDown numericBlue;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.TrackBar trackBlue;
+        private System.Windows.Forms.TrackBar trackGreen;
+        private System.Windows.Forms.TrackBar trackRed;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label8;
     }
 }
 
