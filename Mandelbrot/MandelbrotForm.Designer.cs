@@ -194,7 +194,6 @@
             this.pnFractal.Name = "pnFractal";
             this.pnFractal.Size = new System.Drawing.Size(585, 460);
             this.pnFractal.TabIndex = 3;
-            this.pnFractal.Paint += new System.Windows.Forms.PaintEventHandler(this.pnFractal_Paint);
             this.pnFractal.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pnFractal_MouseClick);
             // 
             // listBox
@@ -262,7 +261,6 @@
             this.label6.Size = new System.Drawing.Size(52, 15);
             this.label6.TabIndex = 13;
             this.label6.Text = "Green";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
             // 
             // label5
             // 
@@ -273,7 +271,6 @@
             this.label5.Size = new System.Drawing.Size(34, 15);
             this.label5.TabIndex = 12;
             this.label5.Text = "Red";
-            this.label5.Click += new System.EventHandler(this.label5_Click);
             // 
             // numericRed
             // 
@@ -296,7 +293,6 @@
             0,
             0,
             0});
-            this.numericRed.ValueChanged += new System.EventHandler(this.numericUpDown3_ValueChanged);
             // 
             // numericGreen
             // 
@@ -341,7 +337,6 @@
             0,
             0,
             0});
-            this.numericBlue.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
             // 
             // MandelbrotForm
             // 
@@ -355,7 +350,6 @@
             this.Cursor = System.Windows.Forms.Cursors.Cross;
             this.Name = "MandelbrotForm";
             this.Text = "Mandelbrot";
-            this.Load += new System.EventHandler(this.MandelbrotForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nmThreads)).EndInit();
             this.statusStrip.ResumeLayout(false);
             this.statusStrip.PerformLayout();

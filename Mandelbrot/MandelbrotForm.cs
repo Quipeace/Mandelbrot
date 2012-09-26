@@ -21,7 +21,6 @@ namespace Mandelbrot
             InitializeComponent();
 
             InitializeListbox();
-            pnFractal.Paint += drawScreen;
         }
 
         private void InitializeListbox()
@@ -33,11 +32,11 @@ namespace Mandelbrot
             listBox.Items.Add("Landmark 5");
         }
 
-        private void drawScreen(object sender, PaintEventArgs e)
+        private void drawMandel()
         {
             int numThreads = (int)nmThreads.Value;          
 
-            Mandelbrot.scale = double.Parse(tbScale.Text);      // Schaal ophalen uit textbox
+            Mandelbrot.scale = double.Parse(tbScale.Text);            // Schaal ophalen uit textbox
             Mandelbrot.maxIterations = int.Parse(tbIterations.Text);  // Max. iteraties
 
             Mandelbrot.mandelOffset[0] = double.Parse(tbCoordX.Text);   // X "coordinaat"
@@ -55,7 +54,7 @@ namespace Mandelbrot
 
             if (numThreads == 0)
             {
-                Mandelbrot.generateImage(e.Graphics, 0, 1);    // graphics, startX, stepSize
+                Mandelbrot.generateImage(pnFractal.CreateGraphics(), 0, 1);    // graphics, startX, stepSize
             }
             else
             {
@@ -74,7 +73,7 @@ namespace Mandelbrot
 
         private void btRun_Click(object sender, EventArgs e)
         {
-            pnFractal.Invalidate();                         // Invalidate panel om opnieuw te renderen
+            drawMandel();
         }
 
         private void btReset_Click(object sender, EventArgs e)
@@ -84,7 +83,7 @@ namespace Mandelbrot
             tbScale.Text = "0.01";
             tbIterations.Text = "100";
 
-            pnFractal.Invalidate();                         // Invalidate panel om opnieuw te renderen na resetten waarden 
+            drawMandel();
         }
 
         private String oldIterations = "100";               
@@ -180,7 +179,7 @@ namespace Mandelbrot
             tbCoordX.Text = correctedX.ToString();
             tbCoordY.Text = correctedY.ToString();
 
-            pnFractal.Invalidate();                                     // Renderen met nieuwe waardes
+            drawMandel();                                     // Renderen met nieuwe waardes
         }
 
         private void listBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -208,47 +207,7 @@ namespace Mandelbrot
                 default:
                     break;
             }
-            pnFractal.Invalidate();
-        }
-
-        private void gbControls_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void MandelbrotForm_Load(object sender, EventArgs e)
-        {
-
-        }
-
-        private void trackBar2_Scroll(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void numericUpDown3_ValueChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label5_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label6_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void pnFractal_Paint(object sender, PaintEventArgs e)
-        {
-
+            drawMandel();
         }
     }
 }
