@@ -17,7 +17,7 @@ namespace Mandelbrot
 
         private static int calculate(double x, double y) // Uitrekenen van het mandelgetal
         {
-            double a = 0;                   // Zetten van vars
+            double a = 0;                                // Zetten van vars
             double b = 0;
             double mandel = 0;
 
@@ -29,9 +29,9 @@ namespace Mandelbrot
                 a = newA;                                               // A naar nieuwe waarde zetten
 
                 mandel = a * a + b * b; 
-                if (mandel > 4)
+                if (mandel > 4)                                         // Escape bij 4
                 {
-                    return iteration;                           // Als de waarde groter is dan view het aantal iteraties terugsturen
+                    return iteration;                                   // Als de waarde groter is dan view het aantal iteraties terugsturen
                 }
             }
 
@@ -43,23 +43,21 @@ namespace Mandelbrot
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            Bitmap personalBitmap = new Bitmap(screenSize[0], screenSize[1]);              // Eigen bitmap zodat er niet gewacht hoeft te worden op andere threads
-                                                                            // TODO kleinere bitmap voor elke thread
-            for (int x = start; x < screenSize[0]; x = x + stepSize)                // X ophogen met stepSize, afhankelijk van het aantal draaiende threads
+            Bitmap personalBitmap = new Bitmap(screenSize[0], screenSize[1], graphics);              // Eigen bitmap zodat er niet gewacht hoeft te worden op andere threads
+            for (int x = start; x < screenSize[0]; x = x + stepSize)                       // X ophogen met stepSize (afhankelijk van het aantal gestartte threads)
             {
-                for (int y = 0; y < screenSize[1]; y++)                            // Elke thread rekent altijd een volledige baan uit
+                for (int y = 0; y < screenSize[1]; y++)                                    // Elke thread rekent altijd een volledige baan uit
                 {
-                    double scaledX = (x - halfScreenSize[0]) * scale + mandelOffset[0];     // Schalen naar mandelbrot-coordinaten
+                    double scaledX = (x - halfScreenSize[0]) * scale + mandelOffset[0];    // Schalen naar mandelbrot-coordinaten
                     double scaledY = (y - halfScreenSize[1]) * scale + mandelOffset[1];
 
-                    int mandelNum = Mandelbrot.calculate(scaledX, scaledY);    // Draaien daadwerkelijke berekening
+                    int mandelNum = Mandelbrot.calculate(scaledX, scaledY);                // Draaien daadwerkelijke berekening
 
                     personalBitmap.SetPixel(x, y, GetColor(mandelNum));
                 }
             }
 
-            graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-            graphics.DrawImage(personalBitmap, 0, 0);                       // Elke thread heeft zijn eigen graphics object, dus er hoeft niet gewacht te worden op elkaar
+            graphics.DrawImage(personalBitmap, 0, 0);
 
             stopwatch.Stop();
             Console.Out.WriteLine("Done in " + stopwatch.ElapsedMilliseconds);

@@ -15,7 +15,6 @@ namespace Mandelbrot
 {
     public partial class MandelbrotForm : Form
     {
-
         public MandelbrotForm()
         {
             InitializeComponent();
@@ -234,7 +233,7 @@ namespace Mandelbrot
 
         private void pnFractal_Paint(object sender, PaintEventArgs e)
         {
-
+            drawMandel();
         }
     }
 }
