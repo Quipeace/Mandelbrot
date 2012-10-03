@@ -43,8 +43,8 @@ namespace Mandelbrot
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            Bitmap personalBitmap = new Bitmap(screenSize[0], screenSize[1], graphics);              // Eigen bitmap zodat er niet gewacht hoeft te worden op andere threads
-            for (int x = start; x < screenSize[0]; x = x + stepSize)                       // X ophogen met stepSize (afhankelijk van het aantal gestartte threads)
+            Bitmap personalBitmap = new Bitmap(screenSize[0], screenSize[1]);              // Eigen bitmap zodat er niet gewacht hoeft te worden op andere threads
+            for (int x = start; x < screenSize[0]; x += stepSize)                          // X ophogen met stepSize (afhankelijk van het aantal gestartte threads)
             {
                 for (int y = 0; y < screenSize[1]; y++)                                    // Elke thread rekent altijd een volledige baan uit
                 {

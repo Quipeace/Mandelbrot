@@ -21,45 +21,36 @@ namespace Mandelbrot
 
             InitializeListbox();
 
-            nmThreads.Value = Environment.ProcessorCount;
-
-            int aantal = 0;
-
-            for (int i = 5; i < 25; i += 1)
-            {
-                aantal++;
-            }
-
-            Console.WriteLine("I: " + aantal);
+            nmThreads.Value = Environment.ProcessorCount;   // Aantal threads gelijk aan het aantal logische processoren
         }
 
-        private void InitializeListbox()
-        {
-            listBox.Items.Add("Torn Set");
+        private void InitializeListbox()                    // Namen mooie punten aan listbox toevoegen
+        {  
+            listBox.Items.Add("Torn Set");                  
             listBox.Items.Add("Spiral Down");
             listBox.Items.Add("Stars");
             listBox.Items.Add("Day at the Beach");
-            listBox.Items.Add("Landmark 5");
+            listBox.Items.Add("Lightning");
         }
 
         private void drawMandel()       // Niet in een paint-event om te voorkomen dat het scherm kort wit wordt voor het tekenen
         {                               // Daarbij is Graphics van PaintEventArgs alleen geldig terwijl het paint event draait, CreateGraphics blijft geldig zolang de Control bestaat
-            int numThreads = (int)nmThreads.Value;          
+            int numThreads = (int)nmThreads.Value;                      // Aantal threads ophalen uit invoer      
 
-            Mandelbrot.scale = double.Parse(tbScale.Text);            // Schaal ophalen uit textbox
-            Mandelbrot.maxIterations = int.Parse(tbIterations.Text);  // Max. iteraties
+            Mandelbrot.scale = double.Parse(tbScale.Text);              // Schaal ophalen uit textbox
+            Mandelbrot.maxIterations = int.Parse(tbIterations.Text);    // Max. iteraties
 
             Mandelbrot.mandelOffset[0] = double.Parse(tbCoordX.Text);   // X "coordinaat"
             Mandelbrot.mandelOffset[1] = double.Parse(tbCoordY.Text);   // Y "coordinaat"
 
-            Mandelbrot.colours[0] = (int) trackRed.Value;
+            Mandelbrot.colours[0] = (int) trackRed.Value;               // Kleuren opslaan in array
             Mandelbrot.colours[1] = (int) trackGreen.Value;
             Mandelbrot.colours[2] = (int) trackBlue.Value;
 
             int[] screenSize = { pnFractal.Width, pnFractal.Height };
             int[] halfScreenSize = { pnFractal.Width / 2, pnFractal.Height / 2 };
 
-            if (numThreads == 0)
+            if (numThreads == 0)                                        // Geen threads, blokkeert UI
             {
                 Mandelbrot.generateImage(pnFractal.CreateGraphics(), 0, 1, screenSize, halfScreenSize);    // graphics, startX, stepSize
             }
@@ -201,7 +192,7 @@ namespace Mandelbrot
 
         private void listBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            switch (listBox.SelectedIndex)
+            switch (listBox.SelectedIndex)              // Switch statement om het geselecteerde plaatje te "laden"
             {
                 case 0:
                     tbCoordX.Text = "-1,25340576171876";
@@ -228,16 +219,15 @@ namespace Mandelbrot
                     tbIterations.Text = "100";
                     break;
                 case 4:
+                    tbCoordX.Text = "0,161647033691406";     //TODO mooi punt
+                    tbCoordY.Text = "0,637026367187501";
+                    tbScale.Text = "1,52587890625E-07";
+                    tbIterations.Text = "100";
                     break;
                 default:
                     break;
             }
             drawMandel();
-        }
-
-        private void trackBar1_Scroll(object sender, EventArgs e)
-        {
-
         }
 
         private void pnFractal_Paint(object sender, PaintEventArgs e)

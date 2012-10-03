@@ -314,7 +314,6 @@
             this.trackRed.Size = new System.Drawing.Size(196, 24);
             this.trackRed.TabIndex = 18;
             this.trackRed.Value = 50;
-            this.trackRed.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
             // trackBlue
             // 
