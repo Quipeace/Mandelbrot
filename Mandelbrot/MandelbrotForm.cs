@@ -22,6 +22,15 @@ namespace Mandelbrot
             InitializeListbox();
 
             nmThreads.Value = Environment.ProcessorCount;
+
+            int aantal = 0;
+
+            for (int i = 5; i < 25; i += 1)
+            {
+                aantal++;
+            }
+
+            Console.WriteLine("I: " + aantal);
         }
 
         private void InitializeListbox()
