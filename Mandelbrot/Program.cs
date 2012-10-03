@@ -4,6 +4,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
+/*
+ * Mandelbrot, door Quint Stoffers (3990435) en William Kos (3933083).
+ * 03-10-2012
+*/
+
 namespace Mandelbrot
 {
     static class Program
