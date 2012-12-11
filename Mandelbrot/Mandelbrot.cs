@@ -34,7 +34,6 @@ namespace Mandelbrot
                     return iteration;                                   // Als de waarde groter is dan view het aantal iteraties terugsturen
                 }
             }
-
             return 0;                                                   // Anders 0 terug voor zwart
         }
 
